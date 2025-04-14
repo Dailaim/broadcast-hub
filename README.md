@@ -124,7 +124,7 @@ El archivo `docker-compose.yml` define los contenedores para el backend y fronte
 ├── /frontend
 │   ├── /src
 │   │   └── /Modules
-│   │       └── /orders
+│   │       └── /messages
 │   │           ├── components/
 │   │           ├── screens/
 │   │           └── services/
