@@ -1,13 +1,13 @@
 export interface Message {
-	id: string;
+	id: number;
 	content: string;
 	scheduledTime: string;
-	recipients: string[];
+	group_id: number;
 	status: "pending" | "sent" | "failed";
 }
 
 export interface NewMessage {
 	content: string;
 	scheduledTime: string;
-	recipients: string[];
+	group_id?: number;
 }

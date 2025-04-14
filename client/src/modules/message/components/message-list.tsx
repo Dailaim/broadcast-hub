@@ -3,9 +3,9 @@ import React from "react";
 import type { Message } from "../types";
 
 export interface MessageListProps {
-  messages: Message[];
+  messages?: Message[];
   onEdit: (message: Message) => void;
-  onDelete: (id: string) => void;
+  onDelete: (id: number) => void;
 }
 
 export function MessageList({ messages, onDelete, onEdit }: MessageListProps) {
@@ -15,7 +15,7 @@ export function MessageList({ messages, onDelete, onEdit }: MessageListProps) {
         Scheduled Broadcasts
       </h2>
       <div className="space-y-4">
-        {messages.map((message) => (
+        {messages?.map((message) => (
           <div
             key={message.id}
             className="bg-white dark:bg-slate-800/50 backdrop-blur-sm border border-slate-200 dark:border-purple-900/50 rounded-lg p-5 transition-all hover:bg-slate-50 dark:hover:bg-slate-700/50"
@@ -32,7 +32,7 @@ export function MessageList({ messages, onDelete, onEdit }: MessageListProps) {
                   </div>
                   <div className="flex items-center">
                     <Users className="h-4 w-4 mr-1.5" />
-                    {message.recipients.join(", ")}
+                    {message.group_id}
                   </div>
                 </div>
               </div>

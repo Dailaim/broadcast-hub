@@ -1,11 +1,13 @@
 import { Clock, Send } from "lucide-react";
 import type React from "react";
 import type { NewMessage } from "../types";
+import { GroupResponse } from "../types/groups";
 
 interface MessageFormProps {
   message: NewMessage;
   onSubmit: (e: React.FormEvent) => void;
   onChange: (message: NewMessage) => void;
+  groups?: GroupResponse[];
 }
 
 export function MessageForm({ message, onSubmit, onChange }: MessageFormProps) {

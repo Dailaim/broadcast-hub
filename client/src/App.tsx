@@ -66,7 +66,7 @@ function App() {
                       setNewMessage({
                         content: "",
                         scheduledTime: "",
-                        recipients: [],
+                        group_id: undefined,
                       });
                     }}
                     className="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
