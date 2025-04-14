@@ -1,15 +1,21 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 from fastapi import FastAPI
 import uvicorn
 from scalar_fastapi import get_scalar_api_reference
 from fastapi.middleware.cors import CORSMiddleware
-from dotenv import load_dotenv
 import database.init
+from modules.whatsapp.services import send_whatsapp_message
+from modules.scheduler.services import start_scheduler
+from contextlib import asynccontextmanager
 
-load_dotenv()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    start_scheduler()
+    yield
 
-
-
-app = FastAPI(title="The broadcast hub", openapi_url="/api/v1/docs")
+app = FastAPI(title="The broadcast hub", openapi_url="/api/v1/docs" , lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
