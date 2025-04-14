@@ -1,16 +1,23 @@
+# modules/messages/schemas.py
+
 from pydantic import BaseModel
 from datetime import datetime
 
-class MessageCreate(BaseModel):
+class MessageBase(BaseModel):
     content: str
     scheduled_time: datetime
     group_id: int
 
-class MessageOut(BaseModel):
+class MessageCreate(MessageBase):
+    pass
+
+class MessageUpdate(BaseModel):
+    content: str | None = None
+    scheduled_time: datetime | None = None
+    group_id: int | None = None
+
+class MessageOut(MessageBase):
     id: int
-    content: str
-    scheduled_time: datetime
-    group_id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True

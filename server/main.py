@@ -10,6 +10,9 @@ from modules.whatsapp.services import send_whatsapp_message
 from modules.scheduler.services import start_scheduler
 from contextlib import asynccontextmanager
 
+from modules.message.routes import router as message_router
+from modules.group.routes import router as groups_router
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     start_scheduler()
@@ -23,6 +26,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(message_router)
+app.include_router(groups_router)
 
 @app.get("/health")
 def health_check():
