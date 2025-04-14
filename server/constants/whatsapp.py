@@ -1,0 +1,4 @@
+import os
+
+WHATSAPP_API_KEY = os.getenv("WHATSAPP_API_KEY")
+PHONE_NUMBER_ID = os.getenv("PHONE_NUMBER_ID")
