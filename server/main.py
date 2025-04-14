@@ -2,6 +2,12 @@ from fastapi import FastAPI
 import uvicorn
 from scalar_fastapi import get_scalar_api_reference
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
+import database.init
+
+load_dotenv()
+
+
 
 app = FastAPI(title="The broadcast hub", openapi_url="/api/v1/docs")
 app.add_middleware(
