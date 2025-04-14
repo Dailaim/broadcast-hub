@@ -1,46 +1,26 @@
-import type React from "react";
-import { useState } from "react";
+import { useShallow } from "zustand/shallow";
 import { MessageForm } from "../components/message-form";
 import { MessageList } from "../components/message-list";
-import type { Message, NewMessage } from "../types";
+import { useMessageStore } from "../store/message-store";
 
 export const MessageScreen = () => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "1",
-      content: "Hello everyone! This is a test broadcast.",
-      scheduledTime: "2024-03-20T15:00",
-      recipients: ["Group A", "Group B"],
-      status: "pending",
-    },
-  ]);
+  const { messages, newMessage } = useMessageStore(
+    useShallow((state) => ({
+      messages: state.messages,
+      newMessage: state.newMessage,
+      editingMessage: state.editingMessage,
+    }))
+  );
 
-  const handleDelete = (id: string) => {
-    if (window.confirm("Are you sure you want to delete this broadcast?")) {
-      setMessages(messages.filter((msg) => msg.id !== id));
-    }
-  };
-
-  const [newMessage, setNewMessage] = useState<NewMessage>({
-    content: "",
-    scheduledTime: "",
-    recipients: [],
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const message: Message = {
-      id: Date.now().toString(),
-      content: newMessage.content,
-      scheduledTime: newMessage.scheduledTime,
-      recipients: newMessage.recipients,
-      status: "pending",
-    };
-    setMessages([...messages, message]);
-
-    setNewMessage({ content: "", scheduledTime: "", recipients: [] });
-  };
+  const { handleSubmit, handleDelete, handleEdit, setNewMessage } =
+    useMessageStore(
+      useShallow((state) => ({
+        handleSubmit: state.handleSubmit,
+        handleDelete: state.handleDelete,
+        handleEdit: state.handleEdit,
+        setNewMessage: state.setNewMessage,
+      }))
+    );
 
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
@@ -49,7 +29,11 @@ export const MessageScreen = () => {
         onSubmit={handleSubmit}
         onChange={setNewMessage}
       />
-      <MessageList messages={messages} onDelete={handleDelete} />
+      <MessageList
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        messages={messages}
+      />
     </div>
   );
 };

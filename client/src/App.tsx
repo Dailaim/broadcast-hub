@@ -1,6 +1,8 @@
 import { Megaphone, Moon, Sun } from "lucide-react";
 import { useState } from "react";
+import { useShallow } from "zustand/shallow";
 import { MessageScreen } from "./modules/message/screens";
+import { useMessageStore } from "./modules/message/store/message-store";
 
 function App() {
   const [isDark, setIsDark] = useState(() => {
@@ -12,6 +14,17 @@ function App() {
     localStorage.setItem("theme", !isDark ? "dark" : "light");
     setIsDark(!isDark);
   };
+
+  const editingMessage = useMessageStore(
+    useShallow((state) => state.editingMessage)
+  );
+
+  const { cancelEditing, setNewMessage } = useMessageStore(
+    useShallow((state) => ({
+      cancelEditing: state.cancelEditing,
+      setNewMessage: state.setNewMessage,
+    }))
+  );
 
   return (
     <div
@@ -41,6 +54,27 @@ function App() {
               </div>
             </div>
             <div className="flex items-center space-x-4">
+              {editingMessage && (
+                <div className="flex items-center space-x-2">
+                  <span className="text-sm text-slate-600 dark:text-slate-400">
+                    Editing broadcast
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      cancelEditing();
+                      setNewMessage({
+                        content: "",
+                        scheduledTime: "",
+                        recipients: [],
+                      });
+                    }}
+                    className="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                  >
+                    Cancel editing
+                  </button>
+                </div>
+              )}
               <button
                 type="button"
                 onClick={() => toggleTheme()}
