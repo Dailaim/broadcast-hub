@@ -2,3 +2,4 @@ import os
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 PHONE_NUMBER_BASE = os.getenv("PHONE_NUMBER")
+JOBS_DATABASE_URL = os.getenv("JOBS_DATABASE_URL")
