@@ -12,6 +12,9 @@ from contextlib import asynccontextmanager
 
 from modules.message.routes import router as message_router
 from modules.group.routes import router as groups_router
+from modules.group_user.routes import router as group_user_router
+from modules.user.routes import router as user_router
+ 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -29,6 +32,8 @@ app.add_middleware(
 
 app.include_router(message_router)
 app.include_router(groups_router)
+app.include_router(group_user_router)
+app.include_router(user_router)
 
 @app.get("/health")
 def health_check():

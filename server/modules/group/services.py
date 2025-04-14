@@ -3,7 +3,7 @@ from modules.group import models
 from database.models.group import Group as GroupModel
 
 def create_group(db: Session, payload: models.GroupCreate):
-    group = models.Group(**payload.model_dump())
+    group = GroupModel(**payload.model_dump())
     db.add(group)
     db.commit()
     db.refresh(group)

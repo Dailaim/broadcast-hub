@@ -1,5 +1,3 @@
-# modules/messages/schemas.py
-
 from pydantic import BaseModel
 from datetime import datetime
 
@@ -7,6 +5,8 @@ class MessageBase(BaseModel):
     content: str
     scheduled_time: datetime
     group_id: int
+    status: str = "pending"
+    
 
 class MessageCreate(MessageBase):
     pass
