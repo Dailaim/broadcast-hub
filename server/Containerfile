@@ -12,6 +12,10 @@ RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
 COPY . .
 
+RUN python3 /code/seed.py
+
 EXPOSE 8080
+
+RUN mkdir -p /code/data
 
 CMD ["fastapi", "run", "/code/main.py", "--port", "8080"]

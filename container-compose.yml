@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  client:
+    build:
+      context: ./client
+    ports:
+      - "5173:5173"
+    env_file:
+      - ./.env
+    depends_on:
+      - server
+
+
+  server:
+    build:
+      context: ./server
+    ports:
+      - "8080:8080"
+    volumes:
+      - server-db:/code/data
+    env_file:
+      - ./.env
+
+volumes:
+  server-db:
