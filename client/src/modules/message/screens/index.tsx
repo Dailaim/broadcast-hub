@@ -1,6 +1,7 @@
 import type React from "react";
 import { useState } from "react";
 import { MessageForm } from "../components/message-form";
+import { MessageList } from "../components/message-list";
 import type { Message, NewMessage } from "../types";
 
 export const MessageScreen = () => {
@@ -13,6 +14,12 @@ export const MessageScreen = () => {
       status: "pending",
     },
   ]);
+
+  const handleDelete = (id: string) => {
+    if (window.confirm("Are you sure you want to delete this broadcast?")) {
+      setMessages(messages.filter((msg) => msg.id !== id));
+    }
+  };
 
   const [newMessage, setNewMessage] = useState<NewMessage>({
     content: "",
@@ -42,6 +49,7 @@ export const MessageScreen = () => {
         onSubmit={handleSubmit}
         onChange={setNewMessage}
       />
+      <MessageList messages={messages} onDelete={handleDelete} />
     </div>
   );
 };
