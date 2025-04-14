@@ -3,7 +3,7 @@ import uvicorn
 from scalar_fastapi import get_scalar_api_reference
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI(title="The Bar Manager", version="0.1.0")
+app = FastAPI(title="The broadcast hub", openapi_url="/api/v1/docs")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
