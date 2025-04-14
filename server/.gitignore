@@ -1,3 +1,7 @@
 /.venv/
 **/__pycache__/
 ref.md
+
+.env
+
+*.db
